@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import Element from 'element-ui'
+import ElementPlus from 'element-plus'
 import '../element-variables.scss'
 
-Vue.use(Element)
+export default (app) => {
+  app.use(ElementPlus)
+}
