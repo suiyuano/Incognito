@@ -28,6 +28,12 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
   </div>
+  
+  <div>
+    <el-button type="primary">Primary</el-button>
+  </div>
+
+
 </template>
 
 <script>
