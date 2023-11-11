@@ -29,9 +29,9 @@
             <img class="form__icon" src="@/assets/images/QQ.png" alt="QQ登录">
           </div>
           <span class="text">或使用用户名登录</span>
-          <input class="form__input" type="text" placeholder="用户名/邮箱/手机号"/>
-          <input class="form__input" type="password" placeholder="请输入密码"/>
-          <div class="form__button">立即登录</div>
+          <input class="form__input" v-model="login" type="text" placeholder="用户名/邮箱/手机号"/>
+          <input class="form__input" v-model="login" type="password" placeholder="请输入密码"/>
+          <div class="form__button" @click="loginsubmit">立即登录</div>
         </form>
       </div>
       <div :class="['switch', { 'login': isLogin }]">
@@ -55,30 +55,67 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Login',
-  data() {
-    return {
-      isLogin: true,
-      loginForm: {
-        email: '',
-        password: '',
-      },
-      registerForm: {
-        name: '',
-        email: '',
-        password: '',
-      },
-    }
-  },
-  methods: {
-    login() {
-    },
-    register() {
-    },
-  },
+
+
+<script setup>
+
+import { ref } from "vue";
+import { Cloud } from "laf-client-sdk"; // 引入
+
+// 创建cloud对象
+const cloud = new Cloud({
+  baseUrl: "https://byh6hv.laf.run", // 这里的 <AppID> 需要换成自己的 AppID
+  environment: "h5",
+  getAccessToken: () => "", // 这里先为空
+});
+
+const login = ref("");
+// const list = ref([]);
+
+// ===============================function===============================
+async function loginsubmit() {
+  if (!login.value) return;
+
+  const obj = {
+    username: login.text.value,
+    complete: login.password.value,
+  };
+
+  // await cloud.invoke("login-user", obj);
+  const res = await cloud.invoke("login-user", obj);
+  console.log(res.msg)
+  
+
+  getList();
 }
+
+
+// 下面一段代码为原本的内容
+// export default {
+//   name: 'Login',
+//   data() {
+//     return {
+//       isLogin: true,
+//       loginForm: {
+//         email: '',
+//         password: '',
+//       },
+//       registerForm: {
+//         name: '',
+//         email: '',
+//         password: '',
+//       },
+//     }
+//   },
+//   methods: {
+//     login() {
+//     },
+//     register() {
+//     },
+//   },
+// }
+
+
 </script>
 
 <style lang="scss" scoped>
